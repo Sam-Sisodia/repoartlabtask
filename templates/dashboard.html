@@ -1,0 +1,79 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+    <div class="container-fluid bdr">
+       
+        <div class="row">
+
+            <div class="col-sm-2 mt-5 dbox">
+                <a class="nav mt-5" href="#">
+                    <img src="{% static 'static/img/download.jpeg' %}" class="rounded-circle" alt="" width="90" height="60">
+                  </a>
+  
+                  <a class="nav mt-5" href="#">
+                    <img src="{% static 'static/img/download.jpeg' %}" class="rounded-circle" alt="" width="90" height="60">
+                  </a>
+
+                  <a class="nav mt-5" href="#">
+                    <img src="{% static 'static/img/download.jpeg' %}" class="rounded-circle" alt="" width="90" height="60">
+                  </a> <br>
+                              
+                    <a class="btn btn-primary btn-lg mt-5" href="/createinvoice" role="button">Create Invoice </a>
+       
+
+                   <a class="btn btn-primary btn-lg mt-5" href="/sendinvoice" role="button">Send Invoice </a>
+                    
+            </div> 
+
+
+
+            <div class="col-sm-10 mt-5  dbox">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="button">Button</button>
+                    <button class="btn btn-primary" type="button">Button</button>
+                  </div>
+                  <h1> DashBoard</h1><br>
+                 
+                      
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">DateTime</th>
+                    </tr>     </thead>
+                    <tr>
+                    
+                      {% for i in item %}
+                      <td>{{i.id}}</td>
+                      <td>{{i.name}}</td>
+                      <td>{{i.qty}}</td>
+                      <td>{{i.price}}</td>
+                      <td>{{i.total}}</td>
+                      <td>{{i.date}}</td>
+
+                    </tr>
+                  {%endfor %}
+                
+
+                  </table>
+                
+
+            </div>
+             
+            
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

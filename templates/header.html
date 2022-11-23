@@ -1,0 +1,72 @@
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+        <title>Admin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head> 
+
+ <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                  <img src="{% static 'static/img/logo.png' %}" alt="" width="200" height="60">
+                </a>
+
+    
+            </div>
+            <li class="nav-item dropdown " style="list-style-type:none;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'static/img/download.jpeg' %}" class="rounded-circle" alt="" width="90" height="60">
+                </a>
+                <ul  class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  <li><a class="dropdown-item" href="#">{{user.email}}</a></li>
+                  <li><a class="dropdown-item" href="">Logout</a></li>
+                 
+                </ul>
+              </li>
+            
+            
+        </div>
+
+        
+        
+      </nav>
+
+      
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+ <script src = "{% static 'js/jquery.js' %}"></script>
+ <script src ="{% static 'js/bootstrap.min.js' %}" ></script>
+
+</body>
+
+</html> 
