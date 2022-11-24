@@ -180,14 +180,14 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_REDIRECT_URL = '/dashboard'
 
-LOGOUT_REDIRECT_URL = '127.0.0.1:8000'
+LOGOUT_REDIRECT_URL = '/logout'
 
 SOCIALACCOUNT_LOGIN_ON_GET=True     # use remover  gogle page of sign sign in  
 
 
 
 CRONJOBS = [
-    ('1 * * * *', 'app.email.sendsheduletimemail')
+    ('* * * * *', 'app.email.sendsheduletimemail')
 ]
 
 

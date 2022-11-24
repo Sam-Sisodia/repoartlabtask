@@ -13,7 +13,6 @@ class MyManager(BaseUserManager):
             email=self.normalize_email(email),
             password =password
         )
-        print("this is pass -------",password)
         user.set_password(password)
     
         user.save(using=self._db)
@@ -45,7 +44,6 @@ class MyManager(BaseUserManager):
 class User(AbstractBaseUser):
     username =models.CharField(max_length=25,null=True,blank=True,default=None)
     email = models.EmailField(unique=True)
-
     date = models.DateTimeField(auto_now=True)
     is_varified  = models.BooleanField(default=False)
     email_token = models.CharField(max_length=50)
@@ -66,10 +64,9 @@ class User(AbstractBaseUser):
 
     def get_fullname(self):
         return self.fullname
-    
+
     def  get_short_name(self):
         return self.email
-
 
     def has_perm(self,perm,obj=None):
         return True
@@ -88,35 +85,32 @@ class User(AbstractBaseUser):
         return self.admin
     
 
+
+
+
+class CreateInvoice(models.Model):
+    brandname =models.CharField(max_length=100,null=True,blank=True)
+    sheduledate= models.DateTimeField(null=True,blank=True,)
+    send_usermail = models.EmailField()
+    reciver_usermail = models.EmailField() 
+    invoiceno = models.IntegerField()
+    uploadfile = models.FileField(upload_to="create",null=True,default=None)
+    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name="Invoice_User" , null = True, blank=True)
+ 
+
 class ItemsDetais(models.Model):
     itemname =models.CharField(max_length=100,null=True,blank=True)
     qty    =  models.CharField(max_length=100,null=True,blank=True)
     price = models.CharField(max_length=100,null=True,blank=True)
     total = models.CharField(max_length=100,null=True,blank=True)
-
-
-    
-        
-
-
-class CreateInvoice(models.Model):
-    brandname =models.CharField(max_length=100,null=True,blank=True)
-    sheduledate= models.DateTimeField(null=True,blank=True, )
-    date = models.DateField(null=True, blank=True)
-    send_usermail = models.EmailField(unique=True)
-    reciver_usermail = models.EmailField(unique=True) 
-    invoiceno = models.IntegerField()
-    subtotal = models.IntegerField(null=True, blank=True)
-    item = models.ForeignKey(ItemsDetais,on_delete=models.CASCADE , related_name="Invoice_item" , null = True, blank=True) 
-    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name="Invoice_User" , null = True, blank=True)
- 
+    invoice = models.ForeignKey(CreateInvoice,on_delete=models.CASCADE , related_name="CreateInvoice_item" , null = True, blank=True) 
 
 
 class SendInvoicemail(models.Model):
     fromemial = models.EmailField()
     tomail = models.EmailField()
     shedultime = models.DateTimeField(null=True, blank=True)
-    uploadfile = models.FileField(upload_to="media",null=True,default=None)
+    uploadfile = models.FileField(upload_to="pdf",null=True,default=None)
     
 
 
