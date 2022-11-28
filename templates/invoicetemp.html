@@ -1,0 +1,52 @@
+<html>
+<head>
+</head>
+
+<body>
+<center><h1>{{brandname}}</h1> </center>
+
+<table>
+
+
+    <tr>
+        <th>Item name </th>
+        <th> QTY</th>
+        <th> Price </th>
+    </tr>
+
+    <tr>
+        <td>
+            {% for  i in itemname %}
+               {{i}}<br>
+
+          {%endfor %}
+
+        </td>
+
+
+        <td>
+            {% for  i in qty %}
+               {{i}}<br>
+
+          {%endfor %}
+
+        </td>
+
+
+        <td>
+            {% for  i in price %}
+               {{i}}<br>
+
+          {%endfor %}
+
+        </td>
+
+    </tr>
+
+<table>
+
+
+
+</body>
+
+</html>

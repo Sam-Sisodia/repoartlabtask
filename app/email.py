@@ -77,12 +77,12 @@ def sendsheduletimemail():
             email_from = settings.EMAIL_HOST
 
             email =EmailMessage(
-                "Invoice mail ","Your Invoice sajal repoart",email_from, [tomail] )   
+                "Invoice mail ","Your Invoice  details",email_from, [tomail] )   
             file = i.uploadfile
             #email.content_subtype="html"
-            email.content_subtype="html"
+           
             
-            email.attach(file.name, file.read(),file.content_type)
+            email.attach(file.name, file.read())
 
             email.send()
 
@@ -109,8 +109,7 @@ def createpdf(brandname,fromemail,email,address,invoiceno,today,
     buffer =BytesIO()
 
     # name  = datetime.today().strftime(("%Y-%m-%d %H:%M:%S"))
-    mycanvas = canvas.Canvas(buffer, pagesize=letter)
-
+    mycanvas = canvas.Canvas(buffer, pagesize=A4)
     txtobj = mycanvas.beginText()
     txtobj.setTextOrigin(270,700)
     txtobj.setFont('Times-Roman',25)
@@ -199,14 +198,14 @@ def createpdf(brandname,fromemail,email,address,invoiceno,today,
 
         mycanvas.drawRightString(7*inch,5*inch,"Total : ")
         mycanvas.drawRightString(7.5*inch,5*inch,alltotal)
-        
+
     mycanvas.showPage()
     mycanvas.save()
     pdf = buffer.getvalue()
-    print("This is type of pdf-------- ",pdf)
-
+    buffer.close()
     return pdf
-
+        
+   
 
 
 
@@ -214,11 +213,10 @@ def creatinvoicemail(email,invoice):
     try:
         email =EmailMessage(
             "Invoice mail ","hello",settings.EMAIL_HOST,[email],
-        )   
-    
-        email.content_subtype="html"
-        
-        email.attach(invoice,"application/pdf")
+        )  
+        pdf = invoice
+        email.attach('generated.pdf', pdf, 'application/pdf') 
+       
 
         email.send()
 
@@ -227,6 +225,14 @@ def creatinvoicemail(email,invoice):
     except Exception as e:
         print(e)
         print("not send")
+
+
+def creatinvoicemailcron():
+    pass
+
+
+
+
 
 
             
