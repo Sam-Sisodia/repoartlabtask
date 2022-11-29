@@ -19,6 +19,8 @@ def RegisterUser(request,):
     if request.method == "POST":
         if form.is_valid():
             email = request.POST.get('email')
+            print("This is email, ", email)
+            
             user = form.save()
             password = user.password
             user.set_password(password)
@@ -64,7 +66,6 @@ from pdf_mail import sendpdf
 def Dashboard(request):
     
 
-
     return render(request,'dashboard.html',locals())
 
 
@@ -99,8 +100,7 @@ def sendinvoice(request):
             Sendinvoicemailpdf_email(receivermail,filename,discription)
             user.sendemails = useremail +1
             user.save()
-        else:
-            pass
+        
         maildetails = SendInvoicemail(fromemial=user.email , tomail=receivermail, shedultime=setdate,
                                   uploadfile=filename) 
         maildetails.save()
@@ -129,32 +129,62 @@ def createinvoice(request):
         if not sdate:
             sdate = now
 
-        else:
-            pass
+     
+        invoicedata= CreateInvoice.objects.create(brandname=brandname,send_usermail=fromemail,address=address,
+                              reciver_usermail=email,invoiceno=invoiceno,sheduledate=sdate,user_id=request.user.id)
+        
+    
+       
+
+
 
         mytotal = []
         alltotal = 0
         for i ,j ,k in zip(itemname,qty,price):  
             total = int(j)*int(k)  
             alltotal= total+alltotal
-            ItemsDetais.objects.create(itemname=i,qty=j,price=k,total=total)
+            ItemsDetais.objects.create(itemname=i,qty=j,price=k,total=total,invoice=invoicedata)
             mytotal.append(str(total))
         subtotal = str(alltotal)
      
         invoice = createpdf(brandname,fromemail,email,address,invoiceno,today,itemname,qty,price,mytotal,subtotal)
         
+        
 
-        print(invoice)
-        invoicedata= CreateInvoice.objects.create(brandname=brandname,send_usermail=fromemail,
-                              reciver_usermail=email,invoiceno=invoiceno,sheduledate=sdate)
-        invoicedata.save()
 
-        print("this is ---------------", invoice)
-        creatinvoicemail(email,invoice)
+
+       
+
+
+   
+       
+        
+        
+
+            
+            
+
+       
+        
+
+
+            
+
+
+
+        
+        if invoicedata.sheduledate == now:
+            creatinvoicemail(email,invoice)
+
+       
 
         return redirect('/dashboard')
 
     return  render(request, 'createinvoice.html')
+
+
+
+
 
     
 

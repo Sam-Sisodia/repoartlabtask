@@ -8,6 +8,5 @@ urlpatterns = [
     path('activate/<token>',views.verifyaccount , name="verify"),
     path('sendinvoice/', views.sendinvoice , name="sendinvoice"),
     path('createinvoice',views.createinvoice,name="createinvoice"),
-    
 
 ]

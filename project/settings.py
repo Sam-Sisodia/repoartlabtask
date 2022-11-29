@@ -187,7 +187,8 @@ SOCIALACCOUNT_LOGIN_ON_GET=True     # use remover  gogle page of sign sign in
 
 
 CRONJOBS = [
-    ('* * * * *', 'app.email.sendsheduletimemail')
+    ('* * * * *', 'app.email.sendsheduletimemail'),
+    ('* * * * *', 'app.email.createinvoicecron',['subtotal'])
 ]
 
 

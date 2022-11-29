@@ -94,9 +94,9 @@ class CreateInvoice(models.Model):
     send_usermail = models.EmailField()
     reciver_usermail = models.EmailField() 
     invoiceno = models.IntegerField()
-    uploadfile = models.FileField(upload_to="create",null=True,default=None)
+    address = models.CharField(max_length=200, null =True , blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE , related_name="Invoice_User" , null = True, blank=True)
- 
+
 
 class ItemsDetais(models.Model):
     itemname =models.CharField(max_length=100,null=True,blank=True)
@@ -104,6 +104,7 @@ class ItemsDetais(models.Model):
     price = models.CharField(max_length=100,null=True,blank=True)
     total = models.CharField(max_length=100,null=True,blank=True)
     invoice = models.ForeignKey(CreateInvoice,on_delete=models.CASCADE , related_name="CreateInvoice_item" , null = True, blank=True) 
+     
 
 
 class SendInvoicemail(models.Model):
@@ -111,7 +112,7 @@ class SendInvoicemail(models.Model):
     tomail = models.EmailField()
     shedultime = models.DateTimeField(null=True, blank=True)
     uploadfile = models.FileField(upload_to="pdf",null=True,default=None)
-    
+
 
 
 

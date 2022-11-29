@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 class UserRegisterForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username','email','password']
+        fields = ['email','password']
 
 
     def clean_email(self):

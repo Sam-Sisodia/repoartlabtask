@@ -208,7 +208,6 @@ def createpdf(brandname,fromemail,email,address,invoiceno,today,
    
 
 
-
 def creatinvoicemail(email,invoice):
     try:
         email =EmailMessage(
@@ -216,6 +215,7 @@ def creatinvoicemail(email,invoice):
         )  
         pdf = invoice
         email.attach('generated.pdf', pdf, 'application/pdf') 
+        
        
 
         email.send()
@@ -227,8 +227,66 @@ def creatinvoicemail(email,invoice):
         print("not send")
 
 
-def creatinvoicemailcron():
-    pass
+
+
+
+def createinvoicecron(subtotal):
+   
+   
+    now=datetime.now()
+    today = now.strftime("%Y-%m-%d")
+    now=datetime.now()
+    now = now.strftime("%Y-%m-%d %H:%M:00")
+    try:
+        mail =CreateInvoice.objects.filter(sheduledate=now)
+
+        for i in mail:
+
+            tomail = i.reciver_usermail
+            print("This is  to mail ",tomail)
+            brandname =  i.brandname 
+            send_usermail = i.send_usermail
+            
+            
+            invoiceno        =i.invoiceno
+            address          =i.address
+
+            p =ItemsDetais.objects.filter(invoice_id = i.id )
+           
+            qty = []
+            price = []
+            itemname = []
+            total =[]
+            for s in p :
+                # print("#######################",str(s.qty))
+              
+                # str(s.price)
+                # str(s.itemname)
+                # str(s.total)
+
+                qty.append(s.qty)
+                price.append(s.price)
+                itemname.append(s.itemname)
+                total.append(s.total)
+
+            pdf= createpdf(brandname,send_usermail,tomail,address,invoiceno,today, str(itemname),str(qty),str(price),str(total),subtotal)
+
+            email =EmailMessage(
+            "Invoice mail ","my invoice mail ",settings.EMAIL_HOST,[tomail],
+             )  
+            email.attach('generated.pdf', pdf, 'application/pdf') 
+            email.send()
+
+            print("Message Sent")
+    except Exception as e:
+        print(e)
+        print("not send")
+
+
+
+
+
+
 
 
 
